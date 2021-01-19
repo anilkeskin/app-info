@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+  
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bgimg {
+  background-image: url('static/images/wall2.jpg');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+}
+.middle {
+    opacity:0.8;
+  color:black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding:10px;
+  background-color:white;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+hr {
+  margin: auto;
+  width: 40%;
+}
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button2 {
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+}
+
+.button2:hover {
+    background-color: #555555;
+  color: white;
+}
+</style>
+<body>
+
+<div class="bgimg">
+  <div class="middle">
+    <h1>APARTMENT INFORMATION SYSTEM</h1>
+    <hr>
+    <p>We will be able to access all the information about our apartment with this system. You can pay your dues debts and also view the expenses made for our building. If you still do not have an account, contact the apartment manager.</p>
+     <form action="/forward/" method="post">
+    <button class="button button2" name="forwardBtn" type="submit">Login Page</button>
+    </form>
+     
+  </div>
+</div>
+</body>
+</html>

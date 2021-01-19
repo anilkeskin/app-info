@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Debt Operations</title>
+    <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+</head>
+<body>
+{% block body %}
+<div class="container">
+    <div class="well text-center">
+        <h1>A I S - Debt Operations</h1>
+    </div>
+    <div class="container">
+        <div class="col md-12">
+             {%with messages = get_flashed_messages() %}
+
+            {%if messages%}
+
+            {%for message in messages%}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span area-hidden="true">x</span>
+                    </button>
+                    {{message}}
+                </div>
+
+            {%endfor%}
+
+            {%endif%}
+            {%endwith%}
+            <h2>My Flat's Debt List <a href=userdashboard ><button type="button" class="btn btn-warning pull-right">Go Back Main Page</button></a> </h2>
+
+            <table class="table table-striped">
+            <tr>
+                <th>Debt Name</th>
+                <th>Total</th>
+                <th>Flat Number</th>
+                <th>Action</th>
+            </tr>
+            {% for row in debts %}
+            <tr>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>
+                    <a href="/paymydebt/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to pay your flat's debt ?')">Pay</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </table>
+            <h2>My Flat's Debt Report </h2>
+
+            <table class="table table-striped">
+            <tr>
+                <th>Count Debt</th>
+                <th>Min Debt</th>
+                <th>Max Debt</th>
+                <th>Total Debt</th>
+                <th>AVG Debt</th>
+            </tr>
+                <tr>
+                    {% for row1 in dataList %}
+                        <td>{{row1.0}}</td>
+                    {% endfor %}
+                </tr>
+
+        </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+    <div class="well">
+        <h4>Designed by Anıl Keskin</h4>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+</html>

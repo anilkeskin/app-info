@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Debt Operations</title>
+    <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+</head>
+<body>
+{% block body %}
+<div class="container">
+    <div class="well text-center">
+        <h1>A I S - Announcements</h1>
+    </div>
+    <div class="container">
+        <div class="col md-12">
+
+            <h2>Announcement List <a href=userdashboard ><button type="button" class="btn btn-warning pull-right">Go Back Main Page</button></a> </h2>
+
+            <table class="table table-striped">
+            <tr>
+                <th>Title</th>
+                <th>Text</th>
+                <th>Date</th>
+            </tr>
+            {% for row in announcements %}
+            <tr>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+    <div class="well">
+        <h4>Designed by Anıl Keskin</h4>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+</html>

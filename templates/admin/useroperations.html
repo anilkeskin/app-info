@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+</head>
+<body>
+{% block body %}
+<div class="container">
+    <div class="well text-center">
+        <h1>A I S - Person Operations</h1>
+    </div>
+    <div class="container">
+        <div class="col md-12">
+             {%with messages = get_flashed_messages() %}
+
+            {%if messages%}
+
+            {%for message in messages%}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span area-hidden="true">x</span>
+                    </button>
+                    {{message}}
+                </div>
+
+            {%endfor%}
+
+            {%endif%}
+            {%endwith%}
+            <h2>Person List <button type="button" class="btn btn-success pull-right"  style="margin-left:10px;" data-toggle="modal" data-target="#myModal">Add a Person</button><a href=useroperations ><button type="button" class="btn btn-primary pull-right" style="margin-left:10px;">List All People</button></a> <a href=admindashboard ><button type="button" class="btn btn-warning pull-right">Go Back Main Page</button></a> </h2>
+
+            <form action="{{ url_for('searchbyFlatNumber') }}" method="post">
+                  <div class="form-group">
+                       <input type="text" placeholder="Search By Flat Number" name="searchName" class="form-control" required="1">
+                  </div>
+                <input class="btn btn-warning pull-right" name="login" id="login" type="submit" value="Search">
+            </form>
+
+
+
+            <table class="table table-striped">
+            <tr>
+                <th>TC</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Blood Type</th>
+                <th>Flat Number</th>
+                <th>Action</th>
+            </tr>
+            {% for row in users %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.7}}</td>
+                <td>
+                    <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myeditmodal{{row.0}}">Edit</a>
+                    <a href="/deleteperson/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete person ?')">Delete</a>
+                    <!--<a href="" class="btn btn-success btn-xs" data-toggle="modal" data-target="#mydetail">Detail</a>-->
+
+                </td>
+            </tr>
+             <div id="myeditmodal{{row.0}}" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Update Person</h4>
+                                </div>
+                              <div class="modal-body">
+                                  <form action="{{url_for('updateperson')}}" method="POST">
+                                      <div class="form-group">
+                                          <label>Name:</label>
+                                          <input type="hidden"  name="tc" value="{{row.0}}">
+                                          <input type="text" class="form-control" name="name" value="{{row.1}}">
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Surname:</label>
+                                          <input type="text" class="form-control" name="surname" value="{{row.2}}">
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Phone:</label>
+                                          <input type="text" class="form-control" name="phone" value="{{row.3}}">
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Blood Type:</label>
+                                            <select class="form-control" required="1" name="blood">
+                                                <option value="" disabled selected>Choose a blood type</option>
+                                                <option value="A+">A + </option>
+                                                <option value="A-">A - </option>
+                                                <option value="B+">B + </option>
+                                                <option value="B-">B - </option>
+                                                <option value="AB+">AB + </option>
+                                                <option value="AB-">AB - </option>
+                                                <option value="0+">0 + </option>
+                                                <option value="0-">0 - </option>
+                                             </select>
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Password:</label>
+                                          <input type="text" class="form-control" name="password" value="{{row.6}}">
+                                      </div>
+                                      <div class="form-group">
+                                          <label>Flat Number:</label>
+                                           <select class="form-control" required="1" name="flat">
+                                                 <option value="" disabled selected>Choose a flat number</option>
+                                                 <option value="0">0</option>
+                                                 <option value="1">1</option>
+                                                 <option value="2">2</option>
+                                                 <option value="3">3</option>
+                                                 <option value="4">4</option>
+                                                 <option value="5">5</option>
+                                                 <option value="6">6</option>
+                                                 <option value="7">7</option>
+                                           </select>
+                                      </div>
+                                      <div class="form-group">
+                                          <button class="btn btn-primary" type="sbumit">Update</button>
+                                      </div>
+                                  </form>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+             </div>
+
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert a Person to a flat</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('insertperson')}}" method="POST">
+                        <div class="form-group">
+                            <label>TC:</label>
+                            <input type="text" class="form-control" name="tc" minlength="11" maxlength="11" required="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" class="form-control" name="name" required="1">
+                        </div>
+                        <div class="form-group">
+                        <label>Surname:</label>
+                            <input type="text" class="form-control" name="surname" required="1">
+                        </div>
+                        <div class="form-group">
+                        <label>Phone:</label>
+                            <input type="text" class="form-control" name="phone" required="1">
+                        </div>
+                        <div class="form-group">
+                        <label>Blood Type:</label>
+                               <select class="form-control" required="1" name="blood">
+                                    <option value="" disabled selected>Choose a blood type</option>
+                                    <option value="A+">A + </option>
+                                    <option value="A-">A - </option>
+                                    <option value="B+">B + </option>
+                                    <option value="B-">B - </option>
+                                    <option value="AB+">AB + </option>
+                                    <option value="AB-">AB - </option>
+                                    <option value="0+">0 + </option>
+                                    <option value="0-">0 - </option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                        <label>Role:</label>
+                               <select class="form-control" required="1" name="role">
+                                    <option value="" disabled selected>Choose a role</option>
+                                    <option value="0">Person</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                        <label>Password:</label>
+                            <input type="text" class="form-control" name="password" required="1">
+                        </div>
+                        <div class="form-group">
+                        <label>Flat:</label>
+                            <select class="form-control" required="1" name="flat">
+                                    <option value="" disabled selected>Choose a flat number</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Insert Person</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add Modal -->
+
+{% endblock %}
+    <div class="well">
+        <h4>Designed by Anıl Keskin</h4>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+</html>

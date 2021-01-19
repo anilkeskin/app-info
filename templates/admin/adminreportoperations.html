@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Report</title>
+    <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+</head>
+<body>
+{% block body %}
+<div class="container">
+    <div class="well text-center">
+        <h1>A I S - Report</h1>
+    </div>
+    <div class="container">
+        <div class="col md-12">
+
+            <h2>FLOOR DEBTS <a href=admindashboard ><button type="button" class="btn btn-warning pull-right">Go Back Main Page</button></a> </h2>
+
+            <table class="table table-striped">
+            <tr>
+                <th>FLOOR</th>
+                <th>FLAT NUMBER</th>
+                <th>TOTAL</th>
+            </tr>
+            {% for row in veriler %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+        <div class="col md-12">
+
+            <h2>FLOOR PERSON</h2>
+
+            <table class="table table-striped">
+            <tr>
+                <th>FLOOR</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Blood Type</th>
+            </tr>
+            {% for row in veriler2 %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+
+{% endblock %}
+    <div class="well">
+        <h4>Designed by Anıl Keskin</h4>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+</html>
